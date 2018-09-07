@@ -37,6 +37,14 @@ cmake ..
 make
 ```
 
+If you can't find any conan repo. 
+
+  * Install rpclib by building from source
+  * Install google-benchmark from source
+  * Install capnp 
+  * Install grpc
+
+
 #### Running the benchmarks
 
 I suggest using the `run_benchmarks.sh` script. It took about 40 minutes no my machine to complete all benchmark runs.

@@ -20,13 +20,13 @@ endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON") # for YCM
 
-if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/build/conanbuildinfo.cmake) #Clion, with conanbuildinfo.cmake in build folder
-    include(${CMAKE_CURRENT_SOURCE_DIR}/build/conanbuildinfo.cmake)
-else()
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake) # Not CLion
-endif()
+# if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/build/conanbuildinfo.cmake) #Clion, with conanbuildinfo.cmake in build folder
+#    include(${CMAKE_CURRENT_SOURCE_DIR}/build/conanbuildinfo.cmake)
+# else()
+#    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake) # Not CLion
+# endif()
 
-conan_basic_setup()
+# conan_basic_setup()
 
 add_executable(rpclib_benchmark
     src/target_code.cc
@@ -43,12 +43,12 @@ add_executable(rpclib_benchmark
     src/capnp/struct_helpers.cc
     )
 
-target_link_libraries(rpclib_benchmark ${CONAN_LIBS})
+# target_link_libraries(rpclib_benchmark ${CONAN_LIBS})
 set_target_properties(
         rpclib_benchmark
         PROPERTIES
         CXX_STANDARD 14)
-target_compile_definitions(rpclib_benchmark PUBLIC ${CONAN_DEFINES})
+# target_compile_definitions(rpclib_benchmark PUBLIC ${CONAN_DEFINES})
 target_include_directories(rpclib_benchmark PUBLIC include)
 target_include_directories(rpclib_benchmark PUBLIC include/thrift)
 target_include_directories(rpclib_benchmark PUBLIC include/capnp)
