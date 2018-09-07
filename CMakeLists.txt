@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(rpclib_benchmark)
 
+set(CMAKE_CXX_COMPILER clang++)
+
 macro(remove_cxx_flag flag)
     string(REPLACE "${flag}" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 endmacro()
@@ -28,6 +30,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS "ON") # for YCM
 
 # conan_basic_setup()
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
+find_package(Threads REQUIRED)
+find_package(CapnProto CONFIG REQUIRED)
+
 add_executable(rpclib_benchmark
     src/target_code.cc
     src/benchmark.cc
@@ -44,11 +51,23 @@ add_executable(rpclib_benchmark
     )
 
 # target_link_libraries(rpclib_benchmark ${CONAN_LIBS})
+target_link_libraries(rpclib_benchmark PRIVATE 
+    CapnProto::capnp
+    CapnProto::capnp-rpc)
+
+target_link_libraries(rpclib_benchmark PUBLIC
+    /usr/local/lib/libgrpc.a
+    /usr/local/lib/libgrpc++.a    
+    /usr/local/lib/libprotobuf.a
+    /usr/local/lib/libthrift.a
+    Threads::Threads
+    )
 set_target_properties(
         rpclib_benchmark
         PROPERTIES
         CXX_STANDARD 14)
 # target_compile_definitions(rpclib_benchmark PUBLIC ${CONAN_DEFINES})
+
 target_include_directories(rpclib_benchmark PUBLIC include)
 target_include_directories(rpclib_benchmark PUBLIC include/thrift)
 target_include_directories(rpclib_benchmark PUBLIC include/capnp)

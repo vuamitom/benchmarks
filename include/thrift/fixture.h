@@ -4,7 +4,6 @@
 #define FIXTURE_H_ALZERDCI
 
 #include <atomic>
-#include <boost/make_shared.hpp>
 #include <chrono>
 #include <thread>
 
@@ -42,7 +41,7 @@ public:
 class thrift_bench : public benchmark::Fixture {
 public:
   void SetUp(benchmark::State &) override {
-    using boost::make_shared;
+    using apache::thrift::stdcxx::make_shared;
     using std::make_unique;
     handler = make_shared<thrift_server>();
     processor =
@@ -101,14 +100,14 @@ public:
     benchmark::DoNotOptimize(count = students.size());
   }
 
-  boost::shared_ptr<thrift_server> handler;
-  boost::shared_ptr<apache::thrift::TProcessor> processor;
-  boost::shared_ptr<apache::thrift::server::TServerTransport> serverTransport;
-  boost::shared_ptr<apache::thrift::server::TTransportFactory> transportFactory;
-  boost::shared_ptr<apache::thrift::protocol::TProtocolFactory> protocolFactory;
-  boost::shared_ptr<apache::thrift::protocol::TTransport> clientSocket;
-  boost::shared_ptr<apache::thrift::protocol::TTransport> clientTransport;
-  boost::shared_ptr<apache::thrift::protocol::TProtocol> clientProtocol;
+  apache::thrift::stdcxx::shared_ptr<thrift_server> handler;
+  apache::thrift::stdcxx::shared_ptr<apache::thrift::TProcessor> processor;
+  apache::thrift::stdcxx::shared_ptr<apache::thrift::server::TServerTransport> serverTransport;
+  apache::thrift::stdcxx::shared_ptr<apache::thrift::server::TTransportFactory> transportFactory;
+  apache::thrift::stdcxx::shared_ptr<apache::thrift::protocol::TProtocolFactory> protocolFactory;
+  apache::thrift::stdcxx::shared_ptr<apache::thrift::protocol::TTransport> clientSocket;
+  apache::thrift::stdcxx::shared_ptr<apache::thrift::protocol::TTransport> clientTransport;
+  apache::thrift::stdcxx::shared_ptr<apache::thrift::protocol::TProtocol> clientProtocol;
   std::unique_ptr<thrift_code::ThriftServiceBenchmarkClient> client;
   std::unique_ptr<apache::thrift::server::TSimpleServer> server;
   std::atomic_bool server_running;
