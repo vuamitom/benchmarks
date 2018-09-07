@@ -1,4 +1,4 @@
-/*
+
 #include <benchmark/benchmark.h>
 
 #include "target_code.h"
@@ -73,9 +73,4 @@ int main(int argc, char *argv[]) {
   printf("Starting benchmarks...\n");
   benchmark::Initialize(&argc, argv);
   return benchmark::RunSpecifiedBenchmarks();
-}
-
-*/
-int main(int argc, char *argv[]) {
-
 }

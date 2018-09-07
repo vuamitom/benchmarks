@@ -32,8 +32,23 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS "ON") # for YCM
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
+find_package(ZLIB REQUIRED)
 find_package(Threads REQUIRED)
 find_package(CapnProto CONFIG REQUIRED)
+find_package(benchmark REQUIRED)
+find_package(rpclib REQUIRED)
+
+
+# Find Protobuf installation
+# Looks for protobuf-config.cmake file installed by Protobuf's cmake installation.
+set(protobuf_MODULE_COMPATIBLE TRUE)
+find_package(Protobuf REQUIRED)
+set(_PROTOBUF_LIBPROTOBUF protobuf::libprotobuf)
+
+find_package(gRPC REQUIRED)
+message(STATUS "Using gRPC ${gRPC_VERSION}")
+
+set(_GRPC_GRPCPP_UNSECURE gRPC::grpc++_unsecure)
 
 add_executable(rpclib_benchmark
     src/target_code.cc
@@ -56,11 +71,13 @@ target_link_libraries(rpclib_benchmark PRIVATE
     CapnProto::capnp-rpc)
 
 target_link_libraries(rpclib_benchmark PUBLIC
-    /usr/local/lib/libgrpc.a
-    /usr/local/lib/libgrpc++.a    
-    /usr/local/lib/libprotobuf.a
     /usr/local/lib/libthrift.a
     Threads::Threads
+    benchmark::benchmark
+    rpclib::rpc
+    ${ZLIB_LIBRARIES}
+    ${_PROTOBUF_LIBPROTOBUF}
+    ${_PROTOBUF_LIBPROTOBUF}
     )
 set_target_properties(
         rpclib_benchmark
