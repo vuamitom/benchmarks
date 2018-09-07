@@ -44,6 +44,18 @@ If you can't find any conan repo.
   * Install capnp 
   * Install grpc
 
+Regenerate source code to match version and move source files to equivalent folders
+```
+#capnp
+capnp compile -oc++ ./idl/capnp_service.capnp
+
+#grpc
+protoc -I=./idl --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` ./idl/grpc_service.proto
+
+#thrift
+thrift --gen cpp ./idl/thrift_service.thrift
+```
+
 
 #### Running the benchmarks
 
