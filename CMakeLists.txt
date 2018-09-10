@@ -47,7 +47,6 @@ set(_PROTOBUF_LIBPROTOBUF protobuf::libprotobuf)
 
 find_package(gRPC REQUIRED)
 message(STATUS "Using gRPC ${gRPC_VERSION}")
-
 set(_GRPC_GRPCPP_UNSECURE gRPC::grpc++_unsecure)
 
 add_executable(rpclib_benchmark
@@ -77,7 +76,7 @@ target_link_libraries(rpclib_benchmark PUBLIC
     rpclib::rpc
     ${ZLIB_LIBRARIES}
     ${_PROTOBUF_LIBPROTOBUF}
-    ${_PROTOBUF_LIBPROTOBUF}
+    ${_GRPC_GRPCPP_UNSECURE}
     )
 set_target_properties(
         rpclib_benchmark
