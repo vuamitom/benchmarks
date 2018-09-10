@@ -33,21 +33,31 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS "ON") # for YCM
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 find_package(ZLIB REQUIRED)
+message(STATUS "Using ZLIB ${ZLIB_VERSION}")
 find_package(Threads REQUIRED)
+message(STATUS "Using Threads ${Threads_VERSION}")
 find_package(CapnProto CONFIG REQUIRED)
+message(STATUS "Using CapnProto ${CapnProto_VERSION}")
 find_package(benchmark REQUIRED)
+message(STATUS "Using benchmark ${benchmark_VERSION}")
 find_package(rpclib REQUIRED)
+message(STATUS "Using rpclib ${rpclib_VERSION}")
 
 
 # Find Protobuf installation
 # Looks for protobuf-config.cmake file installed by Protobuf's cmake installation.
-set(protobuf_MODULE_COMPATIBLE TRUE)
-find_package(Protobuf REQUIRED)
-set(_PROTOBUF_LIBPROTOBUF protobuf::libprotobuf)
 
-find_package(gRPC REQUIRED)
-message(STATUS "Using gRPC ${gRPC_VERSION}")
-set(_GRPC_GRPCPP_UNSECURE gRPC::grpc++_unsecure)
+##########################################
+# set(protobuf_MODULE_COMPATIBLE TRUE)
+# find_package(Protobuf REQUIRED)
+# message(STATUS "Using Protobuf ${Protobuf_VERSION}")
+# set(_PROTOBUF_LIBPROTOBUF protobuf::libprotobuf)
+
+# find_package(gRPC REQUIRED)
+# message(STATUS "Using gRPC ${gRPC_VERSION}")
+# set(_GRPC_GRPCPP_UNSECURE gRPC::grpc++_unsecure)
+##########################################
+
 
 add_executable(rpclib_benchmark
     src/target_code.cc
@@ -57,9 +67,9 @@ add_executable(rpclib_benchmark
     src/thrift/thrift_service_types.cpp
     src/thrift/ThriftServiceBenchmark.cpp
     src/thrift/struct_helpers.cc
-    src/grpc/grpc_service.pb.cc
-    src/grpc/grpc_service.grpc.pb.cc
-    src/grpc/struct_helpers.cc
+    # src/grpc/grpc_service.pb.cc
+    # src/grpc/grpc_service.grpc.pb.cc
+    # src/grpc/struct_helpers.cc
     src/rpclib/struct_helpers.cc
     src/capnp/struct_helpers.cc
     )
@@ -75,8 +85,8 @@ target_link_libraries(rpclib_benchmark PUBLIC
     benchmark::benchmark
     rpclib::rpc
     ${ZLIB_LIBRARIES}
-    ${_PROTOBUF_LIBPROTOBUF}
-    ${_GRPC_GRPCPP_UNSECURE}
+    # ${_PROTOBUF_LIBPROTOBUF}
+    # ${_GRPC_GRPCPP_UNSECURE}
     )
 set_target_properties(
         rpclib_benchmark
@@ -87,7 +97,7 @@ set_target_properties(
 target_include_directories(rpclib_benchmark PUBLIC include)
 target_include_directories(rpclib_benchmark PUBLIC include/thrift)
 target_include_directories(rpclib_benchmark PUBLIC include/capnp)
-target_include_directories(rpclib_benchmark PUBLIC include/grpc)
+# target_include_directories(rpclib_benchmark PUBLIC include/grpc)
 
 add_custom_command(TARGET rpclib_benchmark POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E

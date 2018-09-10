@@ -5,11 +5,11 @@
 
 #include "capnp/fixture.h"
 #include "direct/fixture.h"
-#include "grpc/fixture.h"
+// #include "grpc/fixture.h"
 #include "rpclib/fixture.h"
 #include "thrift/fixture.h"
 
-#include "grpc/struct_helpers.h"
+// #include "grpc/struct_helpers.h"
 #include "rpclib/struct_helpers.h"
 #include "thrift/struct_helpers.h"
 #include "capnp/struct_helpers.h"
@@ -49,14 +49,14 @@ MAKE_BENCHMARK(thrift_bench, get_blob)->RangeMultiplier(multiplier)->Range(min_s
 MAKE_BENCHMARK0(direct_bench, get_structs);
 MAKE_BENCHMARK0(rpclib_bench, get_structs);
 MAKE_BENCHMARK0(thrift_bench, get_structs);
-MAKE_BENCHMARK0(grpc_bench, get_structs);
+// MAKE_BENCHMARK0(grpc_bench, get_structs);
 MAKE_BENCHMARK0(capnp_bench, get_structs);
 
 MAKE_BENCHMARK0(direct_bench, get_answer);
 MAKE_BENCHMARK0(rpclib_bench, get_answer);
 MAKE_BENCHMARK0(capnp_bench, get_answer);
 MAKE_BENCHMARK0(thrift_bench, get_answer);
-MAKE_BENCHMARK0(grpc_bench, get_answer);
+// MAKE_BENCHMARK0(grpc_bench, get_answer);
 
 int main(int argc, char *argv[]) {
   printf("Initalizing blob cache...\n");
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
   printf("Initalizing struct cache...\n");
   rpclib_code::fill_struct_cache();
   thrift_code::fill_struct_cache();
-  grpc_code::fill_struct_cache();
+  // grpc_code::fill_struct_cache();
   capnp_code::fill_struct_cache();
 
   printf("Starting benchmarks...\n");
